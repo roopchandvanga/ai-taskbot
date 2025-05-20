@@ -59,8 +59,8 @@ SERPAPI_API_KEY=your-serpapi-key
 Try commands like:
 - Search for current AI trends and save to a file
 - What is the factorial of 12?
-- Search for top 5 data analyst interview questions and save it to a file
-- Find top 3 free courses to learn Python and write them to a file
+- Search for top 5 data analyst interview questions and save it to questions.txt
+- Find top 3 free courses to learn Python and write them to a pycourses.txt
 
 
 
