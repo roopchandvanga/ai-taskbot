@@ -4,6 +4,7 @@ from langchain.agents.agent_types import AgentType
 from langchain_experimental.tools.python.tool import PythonREPLTool
 from langchain_community.utilities import SerpAPIWrapper
 from config import OPENAI_API_KEY, SERPAPI_API_KEY
+from audio import listen
 
 # Initialize LLM
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=OPENAI_API_KEY)
@@ -52,5 +53,17 @@ if __name__ == "__main__":
         try:
             response = agent.run(user_input)
             print("Agent:", response)
+        except Exception as e:
+            print("Error:", e)
+
+if __name__ == "__main__":
+    while True:
+        user_input = listen()  # Voice input instead of text input
+        if not user_input or user_input.lower() in ["exit", "quit"]:
+            break
+        try:
+            response = agent.run(user_input) #response = agent.invoke(user_input)
+            print("Agent:", response)
+            #display_to_glasses(response)
         except Exception as e:
             print("Error:", e)
