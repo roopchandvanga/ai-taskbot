@@ -15,6 +15,6 @@ def listen():
     )
     print("Stopped recording.")
 
-    result = model.transcribe("audio.wav", verbose=False)
+    result = model.transcribe("audio.wav", verbose=False, language="en")
     print("You said:", result["text"].strip())
     return result["text"]

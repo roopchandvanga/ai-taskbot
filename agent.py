@@ -33,7 +33,11 @@ tools = [
     Tool(
     name="FileWriter",
     func=write_to_file,
-    description="Write text to a file. Input should be in the format 'filename.txt|content'. For example: 'books.txt|Learn Python the Hard Way\nAutomate the Boring Stuff'"
+    description=(
+    "Write text to a file. Use input like 'filename.txt|content' to specify a file. "
+    "If no filename is provided, the content will be saved to 'output.txt'. "
+    "Examples: 'summary.txt|Top 5 books' or just '42'."
+)
 )
 ]
 
@@ -49,22 +53,22 @@ agent = initialize_agent(
 def clean_text(text):
     return text.lower().strip().translate(str.maketrans("", "", string.punctuation))
 
-if __name__ == "__main__":
-    while True:
-        user_input = listen()
-        #print(f"Raw: {user_input}")
-        cleaned_input = clean_text(user_input)
+# if __name__ == "__main__":
+#     while True:
+#         user_input = listen()
+#         #print(f"Raw: {user_input}")
+#         cleaned_input = clean_text(user_input)
 
-        if not cleaned_input or cleaned_input in ["exit", "quit"]:
-            print("Exiting agent.")
-            break
+#         if not cleaned_input or cleaned_input in ["exit", "quit"]:
+#             print("Exiting agent.")
+#             break
 
-        try:
-            response = agent.invoke(user_input)
-            print("Agent:", response)
-            # display_to_glasses(response)
-        except Exception as e:
-            print("Error:", e)
+#         try:
+#             response = agent.invoke(user_input)
+#             print("Agent:", response)
+#             # display_to_glasses(response)
+#         except Exception as e:
+#             print("Error:", e)
 
 
 
