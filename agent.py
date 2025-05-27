@@ -5,6 +5,7 @@ from langchain_experimental.tools.python.tool import PythonREPLTool
 from langchain_community.utilities import SerpAPIWrapper
 from config import OPENAI_API_KEY, SERPAPI_API_KEY
 from audio import listen
+import string
 
 # Initialize LLM
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=OPENAI_API_KEY)
@@ -44,26 +45,23 @@ agent = initialize_agent(
     verbose=True
 )
 
-# Command loop
-if __name__ == "__main__":
-    while True:
-        user_input = input("You: ")
-        if user_input.lower() in ["exit", "quit"]:
-            break
-        try:
-            response = agent.run(user_input)
-            print("Agent:", response)
-        except Exception as e:
-            print("Error:", e)
+
+def clean_text(text):
+    return text.lower().strip().translate(str.maketrans("", "", string.punctuation))
 
 if __name__ == "__main__":
     while True:
-        user_input = listen()  # Voice input instead of text input
-        if not user_input or user_input.lower() in ["exit", "quit"]:
+        user_input = listen()
+        print(f"Raw: {user_input}")
+        cleaned_input = clean_text(user_input)
+
+        if not cleaned_input or cleaned_input in ["exit", "quit"]:
+            print("Exiting agent.")
             break
+
         try:
-            response = agent.run(user_input) #response = agent.invoke(user_input)
+            response = agent.invoke(user_input)  # use invoke instead of run
             print("Agent:", response)
-            #display_to_glasses(response)
+            # display_to_glasses(response)
         except Exception as e:
             print("Error:", e)
