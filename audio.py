@@ -1,14 +1,20 @@
-import whisper, os
-
-import os
 import whisper
-
-model = whisper.load_model("base")
+import os
+import subprocess
 
 def listen():
-    print("Recording...")
-    # Record 5 seconds of audio using ffmpeg
-    os.system("ffmpeg -y -f dshow -i audio=\"Microphone (Realtek(R) Audio)\" -t 5 audio.wav")
-    result = model.transcribe("audio.wav")
-    print("You said:", result["text"])
+    model = whisper.load_model("base")
+    mic_name = "Microphone (Realtek(R) Audio)" 
+
+    print("Listening...")
+    # remove FFmpeg output by redirecting it to null
+    subprocess.run(
+        ['ffmpeg', '-y', '-f', 'dshow', '-i', f'audio={mic_name}', '-t', '5', 'audio.wav'],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
+    print("Stopped recording.")
+
+    result = model.transcribe("audio.wav", verbose=False)
+    print("You said:", result["text"].strip())
     return result["text"]

@@ -52,7 +52,7 @@ def clean_text(text):
 if __name__ == "__main__":
     while True:
         user_input = listen()
-        print(f"Raw: {user_input}")
+        #print(f"Raw: {user_input}")
         cleaned_input = clean_text(user_input)
 
         if not cleaned_input or cleaned_input in ["exit", "quit"]:
@@ -60,8 +60,12 @@ if __name__ == "__main__":
             break
 
         try:
-            response = agent.invoke(user_input)  # use invoke instead of run
+            response = agent.invoke(user_input)
             print("Agent:", response)
             # display_to_glasses(response)
         except Exception as e:
             print("Error:", e)
+
+
+
+
