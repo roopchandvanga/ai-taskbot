@@ -2,8 +2,8 @@ import streamlit as st
 from agent import agent, clean_text
 from audio import listen
 
-st.set_page_config(page_title="Smart Glasses Assistant", layout="centered")
-st.title("AI Glasses Assistant")
+st.set_page_config(page_title="Assistant", layout="centered")
+st.title("Task bot")
 
 # Session state to store chat history
 if "messages" not in st.session_state:

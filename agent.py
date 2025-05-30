@@ -8,7 +8,7 @@ from audio import listen
 import string
 
 # Initialize LLM
-llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, api_key=OPENAI_API_KEY)
+llm = ChatOpenAI(model="gpt-4", temperature=0, api_key=OPENAI_API_KEY)
 
 # Initialize Tools
 search = SerpAPIWrapper(serpapi_api_key=SERPAPI_API_KEY)
